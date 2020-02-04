@@ -1,0 +1,6 @@
+
+.metadata/*
+/.metadata/
+SortComparison/.classpath
+SortComparison/.project
+*.prefs
