@@ -18,11 +18,23 @@
      * @return array sorted in ascending order.
      *
      */
-    static double [] insertionSort (double a[]){
-
+    static double [] insertionSort (double a[]){ //returns list if empty or full
+    	double temp;
+    	for (int i = 1; i < a.length; i++) {
+	    	for(int j = i ; j > 0 ; j--){
+		    	if(a[j] < a[j-1]){
+		    	temp = a[j];
+		    	a[j] = a[j-1];
+		    	a[j-1] = temp;
+		    	}
+    	    }
+    	}
+    	return a;
         //todo: implement the sort
     }//end insertionsort
-	
+    // Given a list 8, 4, 3, 5
+    // Sorts in the steps 4, 8|, 3, 5 ... 3, 4, 8|, 5 ... 3, 4, 5, 8|.
+	// a is partially sorted after each increment of i.
 	    /**
      * Sorts an array of doubles using Selection Sort.
      * This method is static, thus it can be called as SortComparison.sort(a)
@@ -30,10 +42,30 @@
      * @return array sorted in ascending order
      *
      */
-    static double [] selectionSort (double a[]){
+    static double [] selectionSort (double a[]){ //returns null if empty list
 
          //todo: implement the sort
-
+    	if( a.length == 0)
+    	{
+    		return null;
+    	}
+    	double smallest, temp;
+    	smallest = 0;
+    	for( int j = 0; j < a.length - 1; j++)   //Length is n-1 as no point in looping again for an nth time, as should be all sorted
+    	{
+	    	for( int i = 0; i < a.length ; i++)
+	    	{
+	    	    smallest = a[i];
+	    		if( smallest > a[i])
+	    		{
+	    			temp = a[i];
+	    			a[i] = smallest;
+	    			smallest = temp;
+	    		}
+	    	}
+	    	a[j] = smallest;
+    	}
+    	return a; 
     }//end selectionsort
 
     /**
