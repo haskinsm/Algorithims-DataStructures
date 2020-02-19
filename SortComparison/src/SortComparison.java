@@ -5,7 +5,8 @@
  *  This class contains static methods that implementing sorting of an array of numbers
  *  using different sort algorithms.
  *
- *  @author
+ *  @author Michael Haskins
+ *   Lecture notes 
  *  @version HT 2020
  */
 
@@ -75,11 +76,41 @@
      * @return array sorted in ascending order
      *
      */
-    static double [] quickSort (double a[]){
-	
-		 //todo: implement the sort
-
+    static double [] quickSort (double a[]){ //Makes use of recursiveQuick and partition methods
+    	//todo: implement the sort
+    	recursiveQuick(a, 0, a.length);
+    	return a;
     }//end quicksort
+    
+    private static void recursiveQuick(double a[], int lo, int hi) {
+    	if(hi <= lo) {  //As array does not need to be sorted
+    	return;
+    	}
+    	int pivotPos = partition(a, lo, hi); 
+    	recursiveQuick(a, lo, pivotPos-1);
+    	recursiveQuick(a, pivotPos+1, hi);
+    	}
+    
+    private static int partition(double a[], int lo, int hi) { // Selects a partition element that is greater than or less than elements to right and left respectively
+    	int i = lo;
+    	int j = hi+1;
+    	double pivot = a[lo];
+    	while(true) {
+	    	while( a[i++] < pivot) {   //Could have errors here, check later
+	    		if(i == hi) break;
+    	    }
+	    	while( pivot < a[j--] ) {
+	    		if(j == lo) break;
+    	    }
+	    	if(i >= j) break;
+	    	double temp = a[i];
+	    	a[i] = a[j];
+	    	a[j] = temp;
+    	}
+    	a[lo] = a[j];
+    	a[j] = pivot;
+    	return j;
+    }
 
     /**
      * Sorts an array of doubles using Merge Sort.
