@@ -30,6 +30,11 @@ public class SortComparisonTest
     @Test
     public void testEmpty()
     {
+    	double [] a = null;
+    	assertEquals("Checking if selection sort handles empty array", null, SortComparison.selectionSort(a));
+    	assertEquals("Checking if quick sort handles empty array", null, SortComparison.quickSort(a));
+    	assertEquals("Checking if merge sort iterative version handles empty array", null, SortComparison.mergeSortIterative(a));
+    	assertEquals("Checking if merge sort recursive version handles empty array", null, SortComparison.mergeSortRecursive(a));
     }
 
 

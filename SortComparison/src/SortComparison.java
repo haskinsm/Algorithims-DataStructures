@@ -20,6 +20,10 @@
      *
      */
     static double [] insertionSort (double a[]){ //returns list if empty or full
+    	if( a == null || a.length == 1)
+    	{
+    		return a;
+    	}
     	double temp;
     	for (int i = 1; i < a.length; i++) {
 	    	for(int j = i ; j > 0 ; j--){
@@ -46,9 +50,9 @@
     static double [] selectionSort (double a[]){ //returns null if empty list
 
          //todo: implement the sort
-    	if( a.length == 0)
+    	if( a == null || a.length == 1)
     	{
-    		return null;
+    		return a;
     	}
     	double smallest, temp;
     	smallest = 0;
@@ -78,6 +82,10 @@
      */
     static double [] quickSort (double a[]){ //Makes use of recursiveQuick and partition methods
     	//todo: implement the sort
+    	if( a == null || a.length == 1)
+    	{
+    		return a;
+    	}
     	recursiveQuick(a, 0, a.length);
     	return a;
     }//end quicksort
@@ -129,6 +137,10 @@
 
     static double[] mergeSortIterative (double a[]) {
     	//todo: implement the sort
+    	if( a == null)
+    	{
+    		return a;
+    	}
     	int n = a.length;
     	mergeSortIterativeCode( a, n);
     	return a;
