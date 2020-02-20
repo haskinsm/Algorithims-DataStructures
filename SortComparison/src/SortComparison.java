@@ -19,6 +19,8 @@
      * @return array sorted in ascending order.
      *
      */
+	private static double array[];
+	
     static double [] insertionSort (double a[]){ //returns list if empty or full
     	if( a == null || a.length == 1)
     	{
@@ -58,9 +60,9 @@
     	smallest = 0;
     	for( int j = 0; j < a.length - 1; j++)   //Length is n-1 as no point in looping again for an nth time, as should be all sorted
     	{
-	    	for( int i = 0; i < a.length ; i++)
+    		smallest = a[j];
+	    	for( int i = j + 1; i < a.length ; i++)
 	    	{
-	    	    smallest = a[i];
 	    		if( smallest > a[i])
 	    		{
 	    			temp = a[i];
@@ -86,22 +88,23 @@
     	{
     		return a;
     	}
-    	recursiveQuick(a, 0, a.length);
+    	recursiveQuick(a, 0, (a.length - 1));
     	return a;
     }//end quicksort
     
     private static void recursiveQuick(double a[], int lo, int hi) {
     	if(hi <= lo) {  //As array does not need to be sorted
-    	return;
+    		return;
     	}
     	int pivotPos = partition(a, lo, hi); 
+    	array = a;
     	recursiveQuick(a, lo, pivotPos-1);
     	recursiveQuick(a, pivotPos+1, hi);
     	}
     
     private static int partition(double a[], int lo, int hi) { // Selects a partition element that is greater than or less than elements to right and left respectively
     	int i = lo;
-    	int j = hi+1;
+    	int j = hi;
     	double pivot = a[lo];
     	while(true) {
 	    	while( a[i++] < pivot) {   //Could have errors here, check later
