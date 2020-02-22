@@ -88,39 +88,50 @@
     	{
     		return a;
     	}
-    	recursiveQuick(a, 0, (a.length - 1));
+    	array = a;
+    	recursiveQuick( 0, (a.length - 1));
     	return a;
     }//end quicksort
     
-    private static void recursiveQuick(double a[], int lo, int hi) {
+    private static void recursiveQuick( int lo, int hi) {
     	if(hi <= lo) {  //As array does not need to be sorted
     		return;
     	}
-    	int pivotPos = partition(a, lo, hi); 
-    	array = a;
-    	recursiveQuick(a, lo, pivotPos-1);
-    	recursiveQuick(a, pivotPos+1, hi);
+    	int pivotPos = partition( lo, hi); 
+    	if(lo < (pivotPos - 1))
+    	{
+    		recursiveQuick( lo, pivotPos-1);
     	}
+    	if(hi > pivotPos)
+    	{
+    	recursiveQuick( pivotPos+1, hi);
+    	}
+    }
     
-    private static int partition(double a[], int lo, int hi) { // Selects a partition element that is greater than or less than elements to right and left respectively
-    	int i = lo;
-    	int j = hi;
-    	double pivot = a[lo];
-    	while(true) {
-	    	while( a[i++] < pivot) {   //Could have errors here, check later
-	    		if(i == hi) break;
-    	    }
-	    	while( pivot < a[j--] ) {
-	    		if(j == lo) break;
-    	    }
-	    	if(i >= j) break;
-	    	double temp = a[i];
-	    	a[i] = a[j];
-	    	a[j] = temp;
-    	}
-    	a[lo] = a[j];
-    	a[j] = pivot;
-    	return j;
+    private static int partition( int lo, int hi) { // Selects a partition element that is greater than or less than elements to right and left respectively
+        { 
+            double pivot = array[hi];  
+            int i = (lo-1); // index of smaller element, needs to be -1 to start.
+            for (int j=lo; j<hi; j++) 
+            { 
+                if (array[j] < pivot) 
+                { 
+                    i++; 
+      
+                    // swap elements 
+                    double temp = array[i]; 
+                    array[i] = array[j]; 
+                    array[j] = temp; 
+                } 
+            } 
+      
+            // swaps array[i+1] and array[high] (or pivot) 
+            double temp = array[i+1]; 
+            array[i+1] = array[hi]; 
+            array[hi] = temp; 
+      
+            return i+1; 
+        } 
     }
 
     /**

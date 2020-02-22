@@ -71,8 +71,8 @@ public class SortComparisonTest
     @Test
     public void testQuickSort()
     {
-    	double[] a = {2.0, 3.5, 1.9, 3.2, 4.0, 5.0};
-    	double[] aSorted = {1.9, 2.0, 3.2, 3.5, 4.0, 5.0};
+    	double[] a = {2.0, 3.5, 1.9, 3.2, 4.0, 1.0};
+    	double[] aSorted = {1.0, 1.9, 2.0, 3.2, 3.5, 4.0};
     	double[] aNeg = {-2.0, -3.5, -1.0, -4.0, 7.0};
     	double[] aNegSorted = {-4.0, -3.5, -2.0, -1.0, 7.0};
         double[] single = {6.0};
