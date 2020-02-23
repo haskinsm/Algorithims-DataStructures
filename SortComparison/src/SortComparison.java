@@ -98,11 +98,11 @@
     		return;
     	}
     	int pivotPos = partition( lo, hi); 
-    	if(lo < (pivotPos - 1))
+    	if(lo < (pivotPos - 1)) //If lo == pivotPos then no need to sort what is left of pivotPos 
     	{
     		recursiveQuick( lo, pivotPos-1);
     	}
-    	if(hi > pivotPos)
+    	if(hi > pivotPos) ////If hi == pivotPos then no need to sort what is right of pivotPos 
     	{
     	recursiveQuick( pivotPos+1, hi);
     	}
@@ -116,8 +116,7 @@
             { 
                 if (array[j] < pivot) 
                 { 
-                    i++; 
-      
+                    i++;      
                     // swap elements 
                     double temp = array[i]; 
                     array[i] = array[j]; 
@@ -126,10 +125,9 @@
             } 
       
             // swaps array[i+1] and array[high] (or pivot) 
-            double temp = array[i+1]; 
+            double temp = array[i+1];  //Needs to be i+1
             array[i+1] = array[hi]; 
             array[hi] = temp; 
-      
             return i+1; 
         } 
     }
@@ -161,69 +159,45 @@
     }
     
     static double[] mergeSortIterativeCode(double a[], int n) {
-            // For current size of subarrays to 
-            // be merged curr_size varies from  
-            // 1 to n/2 
-            int curr_size;  
-                          
-            // For picking starting index of  
-            // left subarray to be merged 
+            int subarraySize; // current size of subarrays, will range from 1 to n/2 
             int left_start; 
-                              
-              
-            // Merge subarrays in bottom up  
-            // manner. First merge subarrays  
-            // of size 1 to create sorted  
-            // subarrays of size 2, then merge 
-            // subarrays of size 2 to create  
-            // sorted subarrays of size 4, and 
-            // so on. 
-            for (curr_size = 1; curr_size <= n-1;  
-                          curr_size = 2*curr_size) 
+           
+            // Merging subarrays in bottom up manner. Merging subarrays of size 1, then size 2, then size 4.....
+            for (subarraySize = 1; subarraySize <= n-1;  
+                          subarraySize = 2*subarraySize) 
             { 
-                  
-                // Pick starting point of different 
-                // subarrays of current size 
                 for (left_start = 0; left_start < n-1; 
-                            left_start += 2*curr_size) 
+                            left_start += 2*subarraySize) //picking starting point of subarrays  
                 { 
                     // Find ending point of left  
                     // subarray. mid+1 is starting  
                     // point of right 
-                    int mid = Math.min(left_start + curr_size - 1, n-1); 
-              
+                    int mid = Math.min(left_start + subarraySize - 1, n-1); 
                     int right_end = Math.min(left_start  
-                                 + 2*curr_size - 1, n-1); 
-              
-                    // Merge Subarrays a[left_start...mid] 
-                    // & a[mid+1...right_end] 
+                                 + 2*subarraySize - 1, n-1);               
+                    // Merge Subarrays                    
                     merge(a, left_start, mid, right_end); 
                 } 
             }
             return a;
         } 
           
-        /* Function to merge the two haves a[l..m] and 
-        a[m+1..r] of array a[] */
+       //Merges two subarrays
         static void merge(double a[], int l, int m, int r) 
         { 
             int i, j, k; 
             int n1 = m - l + 1; 
             int n2 = r - m; 
-          
-            /* create temp arrays */
+            //Temp arrays for left and right
             double L[] = new double[n1]; 
             double R[] = new double[n2]; 
           
-            /* Copy data to temp arrays L[] 
-            and R[] */
+            //Copying the temp arrays for their respective ranges
             for (i = 0; i < n1; i++) 
                 L[i] = a[l + i]; 
             for (j = 0; j < n2; j++) 
                 R[j] = a[m + 1+ j]; 
-          
-            /* Merge the temp arrays back into 
-            a[l..r]*/
+            //merge back in the sorted temp arrays into a
             i = 0; 
             j = 0; 
             k = l; 
@@ -242,17 +216,13 @@
                 k++; 
             } 
           
-            /* Copy the remaining elements of  
-            L[], if there are any */
+           //Copies remaining elements if any
             while (i < n1) 
             { 
                 a[k] = L[i]; 
                 i++; 
                 k++; 
             } 
-          
-            /* Copy the remaining elements of 
-            R[], if there are any */
             while (j < n2) 
             { 
                 a[k] = R[j]; 
