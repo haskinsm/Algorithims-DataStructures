@@ -265,8 +265,8 @@
             { 
                 right[i - middle] = a[i]; 
             } 
-            mergeSortIterative(left); // recursive call for left and right
-            mergeSortIterative(right); 
+            mergeSortRecursive(left); // recursive call for left and right
+            mergeSortRecursive(right); 
   
             int i = 0; 
             int j = 0; 
