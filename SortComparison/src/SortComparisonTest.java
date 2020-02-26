@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import 
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -17,6 +16,96 @@ import java.util.Scanner;
 
 import org.junit.Ignore;
 
+/*
+ * Array Size - 10
+	Time taken in nano seconds for insertion: 3033
+	Time taken in nano seconds for Selection: 2466
+	Time taken in nano seconds for quick: 9400
+	Time taken in nano seconds for merge iterative: 27433
+	Time taken in nano seconds for merge recursive: 6366
+	
+	Array Size - 100
+	Time taken in nano seconds for insertion: 165033
+	Time taken in nano seconds for Selection: 129833
+	Time taken in nano seconds for quick: 152266
+	Time taken in nano seconds for merge iterative: 108733
+	Time taken in nano seconds for merge recursive: 90266
+	
+	Array Size - 1000
+	Time taken in nano seconds for insertion: 3563666
+	Time taken in nano seconds for Selection: 3144466
+	Time taken in nano seconds for quick: 1098499
+	Time taken in nano seconds for merge iterative: 179566
+	Time taken in nano seconds for merge recursive: 137700
+	
+	Array Size - 1000 duplicates
+	Time taken in nano seconds for insertion: 280600
+	Time taken in nano seconds for Selection: 364766
+	Time taken in nano seconds for quick: 60966
+	Time taken in nano seconds for merge iterative: 179033
+	Time taken in nano seconds for merge recursive: 142066
+	
+	Array Size - 1000 Nearly Ordered
+	Time taken in nano seconds for insertion: 246500
+	Time taken in nano seconds for Selection: 292933
+	Time taken in nano seconds for quick: 338533
+	Time taken in nano seconds for merge iterative: 170633
+	Time taken in nano seconds for merge recursive: 123433
+	
+	Array Size - 1000 Reverses
+	Time taken in nano seconds for insertion: 311500
+	Time taken in nano seconds for Selection: 276766
+	Time taken in nano seconds for quick: 491433
+	Time taken in nano seconds for merge iterative: 150866
+	Time taken in nano seconds for merge recursive: 120733
+	
+	Array Size - 1000 Sorted
+	Time taken in nano seconds for insertion: 234766
+	Time taken in nano seconds for Selection: 253200
+	Time taken in nano seconds for quick: 463500
+	Time taken in nano seconds for merge iterative: 154733
+	Time taken in nano seconds for merge recursive: 123033
+
+	a. Which of the sorting algorithms does the order of input have an impact on? Why?
+	
+	The order of input has an impact on all the algorithms to varying degrees. This can be seen as every algorithm has a 
+	different run time when double arrays of size 1000, 1000 nearly sorted, 1000 sorted, 1000 duplicates, 1000 reverse 
+	are passed into it.
+	
+	b. Which algorithm has the biggest difference between the best and worst performance, based
+	on the type of input, for the input of size 1000? Why?
+	
+	My quick sort algorithm has the biggest difference between the best and worst performance based on the type of input.
+	For 1000 it has a run time of 1098499, which is its worse run time, and its best is for duplicates of size 1000, which has 
+	a run time of 60966 nano seconds.
+	
+	c. Which algorithm has the best/worst scalability, i.e., the difference in performance time
+	based on the input size? Please consider only input files with random order for this answer.
+	
+	Merge recursive has the best scalability, this can be seen for size 10, 100, 1000 its run times in nano seconds
+	are 6366, 90266, 137700. 
+	Quick sort has the worst scalability, this can be seen for size 10, 100, 1000 its run times in nano seconds are 
+	9400, 152266, 1098499.
+	
+	d. Did you observe any difference between iterative and recursive implementations of merge
+	sort?
+	
+	Yes merge recursive was more efficient for every input array. It was better than merge iterative for a considerable amount.
+	
+	e. Which algorithm is the fastest for each of the 7 input files?
+	
+	For size 10- Selection Sort
+	For size 100- merge recursive
+	For size 1000- merge recursive
+	For size 1000 Duplicates- Quick sort
+	For size 1000 Nearly Ordered- merge recursive.
+	For size 1000 Reversed- merge recursive.
+	For size 1000 Sorted- merge recursive.
+	
+	4. Use of version control
+	
+	Used Github.
+ */
 
 //-------------------------------------------------------------------------
 /**
@@ -317,197 +406,367 @@ public class SortComparisonTest
         System.arraycopy(a1000Sorted, 0, c1000Sorted, 0, a1000Sorted.length);
         System.arraycopy(a1000Sorted, 0, d1000Sorted, 0, a1000Sorted.length);
         System.arraycopy(a1000Sorted, 0, e1000Sorted, 0, a1000Sorted.length);
-    	
-      System.nanoTime()
-        
-        
-        System.out.println("Array Size - 10");
-        Stopwatch stopwatch1 = Stopwatch.();
-        SortComparison.insertionSort(array10);
-    	   double time = stopwatch1.elapsedTime();
-    	   System.out.println("Elapsed Time Insert " + time);
-    	   
-    	   Stopwatch stopwatch2 = new Stopwatch();
-           SortComparison.quickSort(b10);
-       	   double time2 = stopwatch2.elapsedTime();
-       	   System.out.println("Elapsed Time Quick " + time2);  
-       	   
-       	   Stopwatch stopwatch3 = new Stopwatch();
-       	   SortComparison.mergeSortIterative(c10);
-    	   double time3 = stopwatch3.elapsedTime();
-    	   System.out.println("Elapsed Time Merge iterative " + time3);
-    	   
-    	   Stopwatch stopwatch4 = new Stopwatch();
-           SortComparison.mergeSortRecursive(d10);
-       	   double time4 = stopwatch4.elapsedTime();
-       	   System.out.println("Elapsed Time Shell " + time4);
-       	   
-	       Stopwatch stopwatch5 = new Stopwatch();
-	       SortComparison.selectionSort(e10);
-    	   double time5 = stopwatch5.elapsedTime();
-    	   System.out.println("Elapsed Time Selection " + time5);
-    	   
-    	   System.out.println("Array Size - 100");
-           Stopwatch stopwatch7 = new Stopwatch();
-           SortComparison.insertionSort(a100);
-       	   double time7 = stopwatch7.elapsedTime();
-       	   System.out.println("Elapsed Time Insert " + time7);
-       	   
-	       Stopwatch stopwatch8 = new Stopwatch();
-	       SortComparison.quickSort(b100);
-    	   double time8 = stopwatch8.elapsedTime();
-    	   System.out.println("Elapsed Time Quick " + time8);
-    	   
-    	   Stopwatch stopwatch9 = new Stopwatch();
-       	   SortComparison.mergeSortIterative(c100);
-    	   double time9 = stopwatch9.elapsedTime();
-    	   System.out.println("Elapsed Time Merge " + time9);
-
-    	   Stopwatch stopwatch10 = new Stopwatch();
-           SortComparison.mergeSortRecursive(d100);
-       	   double time10 = stopwatch10.elapsedTime();
-       	   System.out.println("Elapsed Time Shell " + time10);
-       	   
-	       Stopwatch stopwatch11 = new Stopwatch();
-		   SortComparison.selectionSort(e100);
-	 	   double time11 = stopwatch11.elapsedTime();
-	 	   System.out.println("Elapsed Time Selection " + time11);
-	 	   
-	 	   Stopwatch stopwatch12 = new Stopwatch();
-	       SortComparison.bubbleSort(f100);
-	       double time12 = stopwatch12.elapsedTime();
-	       System.out.println("Elapsed Time Bubble " + time12);
-	       
-	       System.out.println("Array Size - 1000");
-           Stopwatch stopwatch13 = new Stopwatch();
-           SortComparison.insertionSort(a1000);
-       	   double time13 = stopwatch13.elapsedTime();
-       	   System.out.println("Elapsed Time Insert " + time13);
-       	   
-       	   Stopwatch stopwatch14 = new Stopwatch();
-	       SortComparison.quickSort(b1000);
-	 	   double time14 = stopwatch14.elapsedTime();
-	 	   System.out.println("Elapsed Time Quick " + time14);
-	 	   
-	 	   Stopwatch stopwatch15 = new Stopwatch();
-      	   SortComparison.mergeSortIterative(c1000);
-      	   double time15 = stopwatch15.elapsedTime();
-      	   System.out.println("Elapsed Time Merge " + time15);
-      	   
-      	   Stopwatch stopwatch16 = new Stopwatch();
-      	   SortComparison.mergeSortRecursive(d1000);
-     	   double time16 = stopwatch16.elapsedTime();
-     	   System.out.println("Elapsed Time Shell " + time16);
-     	   
-     	   Stopwatch stopwatch17 = new Stopwatch();
-		   SortComparison.selectionSort(e1000);
-	 	   double time17 = stopwatch17.elapsedTime();
-	 	   System.out.println("Elapsed Time Selection " + time17);
-	 	   
-	       System.out.println("Array Size - 1000 - Duplicates");
-           Stopwatch stopwatch19 = new Stopwatch();
-           SortComparison.insertionSort(a1000Duplicates);
-       	   double time19 = stopwatch19.elapsedTime();
-       	   System.out.println("Elapsed Time Insert " + time19);
-       	
-	       Stopwatch stopwatch20 = new Stopwatch();
-	       SortComparison.quickSort(b1000Duplicate);
-    	   double time20 = stopwatch20.elapsedTime();
-    	   System.out.println("Elapsed Time Quick " + time20);
-       	   
-    	   Stopwatch stopwatch21 = new Stopwatch();
-	       SortComparison.mergeSortIterative(c1000Duplicate);
-    	   double time21 = stopwatch21.elapsedTime();
-    	   System.out.println("Elapsed Time Merge " + time21);
-    	   
-    	   Stopwatch stopwatch22 = new Stopwatch();
-	       SortComparison.mergeSortRecursive(d1000Duplicate);
-    	   double time22 = stopwatch22.elapsedTime();
-    	   System.out.println("Elapsed Time Shell " + time22);
-    	   
-    	   Stopwatch stopwatch23 = new Stopwatch();
-	       SortComparison.selectionSort(e1000Duplicate);
-    	   double time23 = stopwatch23.elapsedTime();
-    	   System.out.println("Elapsed Time Selection " + time23);
-    	   
-    	   System.out.println("Array Size - 1000 - Nearly Ordered");
-    	   Stopwatch stopwatch25 = new Stopwatch();
-	       SortComparison.insertionSort(a1000Nearly);
-    	   double time25 = stopwatch25.elapsedTime();
-    	   System.out.println("Elapsed Time Insert " + time25);
-    	   
-    	   Stopwatch stopwatch26 = new Stopwatch();
-	       SortComparison.quickSort(b1000Nearly);
-    	   double time26 = stopwatch26.elapsedTime();
-    	   System.out.println("Elapsed Time Quick " + time26);
-    	   
-    	   Stopwatch stopwatch27 = new Stopwatch();
-	       SortComparison.mergeSortIterative(c1000Nearly);
-    	   double time27 = stopwatch27.elapsedTime();
-    	   System.out.println("Elapsed Time Merge " + time27);
-    	   
-    	   Stopwatch stopwatch28 = new Stopwatch();
-	       SortComparison.mergeSortRecursive(d1000Nearly);
-    	   double time28 = stopwatch28.elapsedTime();
-    	   System.out.println("Elapsed Time Shell " + time28);
-    	   
-    	   Stopwatch stopwatch29 = new Stopwatch();
-	       SortComparison.selectionSort(e1000Nearly);
-    	   double time29 = stopwatch29.elapsedTime();
-    	   System.out.println("Elapsed Time Selection " + time29);
-    	
-    	   System.out.println("Array Size - 1000 - Reversed");
-    	   Stopwatch stopwatch31 = new Stopwatch();
-	       SortComparison.insertionSort(a1000Reverse);
-    	   double time31 = stopwatch31.elapsedTime();
-    	   System.out.println("Elapsed Time Insert " + time31);
-    	   
-    	   Stopwatch stopwatch32 = new Stopwatch();
-	       SortComparison.quickSort(b1000Reverse);
-    	   double time32 = stopwatch32.elapsedTime();
-    	   System.out.println("Elapsed Time Quick " + time32);
-    	   
-    	   Stopwatch stopwatch33 = new Stopwatch();
-	       SortComparison.insertionSort(c1000Reverse);
-    	   double time33 = stopwatch33.elapsedTime();
-    	   System.out.println("Elapsed Time Merge " + time33);
-    	   
-    	   Stopwatch stopwatch34 = new Stopwatch();
-	       SortComparison.insertionSort(d1000Reverse);
-    	   double time34 = stopwatch34.elapsedTime();
-    	   System.out.println("Elapsed Time Shell " + time34);
-    	   
-    	   Stopwatch stopwatch35 = new Stopwatch();
-	       SortComparison.insertionSort(e1000Reverse);
-    	   double time35 = stopwatch35.elapsedTime();
-    	   System.out.println("Elapsed Time Selection " + time35);
     	 
-    	   System.out.println("Array Size - 1000 - Sorted");
-    	   Stopwatch stopwatch37 = new Stopwatch();
-	       SortComparison.insertionSort(a1000Sorted);
-    	   double time37 = stopwatch37.elapsedTime();
-    	   System.out.println("Elapsed Time Insert " + time37);
-    	   
-    	   Stopwatch stopwatch38 = new Stopwatch();
-	       SortComparison.quickSort(b1000Sorted);
-    	   double time38 = stopwatch38.elapsedTime();
-    	   System.out.println("Elapsed Time Quick " + time38);
-    	   
-    	   Stopwatch stopwatch39 = new Stopwatch();
-	       SortComparison.mergeSortIterative(c1000Sorted);
-    	   double time39 = stopwatch39.elapsedTime();
-    	   System.out.println("Elapsed Time Merge " + time39);
-    	   
-    	   Stopwatch stopwatch40 = new Stopwatch();
-	       SortComparison.mergeSortRecursive(d1000Sorted);
-    	   double time40 = stopwatch40.elapsedTime();
-    	   System.out.println("Elapsed Time Shell " + time40);
-    	   
-    	   Stopwatch stopwatch41 = new Stopwatch();
-	       SortComparison.selectionSort(e1000Sorted);
-    	   double time41 = stopwatch41.elapsedTime();
-    	   System.out.println("Elapsed Time Selection " + time41); 	
-    	   */    	   
+        
+        System.out.println("\n" + "Array Size - 10" );
+        long nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.insertionSort(array10); //Hoping that it receives an unsorted array each time
+        }
+        long nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for insertion: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.selectionSort(b10); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for Selection: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.quickSort(c10); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for quick: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortIterative(d10); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge iterative: "
+                + ((nano_endTime - nano_startTime)/3) );
+       
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortRecursive(e10); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge recursive: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        
+        //100's
+        System.out.println("\n" + "Array Size - 100" );
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.insertionSort(a100); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for insertion: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.selectionSort(b100); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for Selection: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.quickSort(c100); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for quick: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortIterative(d100); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge iterative: "
+                + ((nano_endTime - nano_startTime)/3) );
+       
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortRecursive(e100); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge recursive: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        
+        //For 1000's
+        System.out.println("\n" + "Array Size - 1000" );
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.insertionSort(a1000); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for insertion: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.selectionSort(b1000); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for Selection: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.quickSort(c1000); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for quick: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortIterative(d1000); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge iterative: "
+                + ((nano_endTime - nano_startTime)/3) );
+       
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortRecursive(e1000); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge recursive: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        //For 1000's Duplicates
+        System.out.println("\n" + "Array Size - 1000 duplicates" );
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.insertionSort(a1000Duplicates); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for insertion: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.selectionSort(b1000Duplicate); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for Selection: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.quickSort(c1000Duplicate); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for quick: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortIterative(d1000Duplicate); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge iterative: "
+                + ((nano_endTime - nano_startTime)/3) );
+       
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortRecursive(e1000Duplicate); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge recursive: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        //For 1000's Nearly Ordered
+        System.out.println("\n" + "Array Size - 1000 Nearly Ordered");
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.insertionSort(a1000NearlyOrdered); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for insertion: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.selectionSort(b1000Nearly); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for Selection: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.quickSort(c1000Nearly); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for quick: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortIterative(d1000Nearly); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge iterative: "
+                + ((nano_endTime - nano_startTime)/3) );
+       
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortRecursive(e1000Nearly); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge recursive: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        //1000'S Reveres
+        System.out.println("\n" + "Array Size - 1000 Reverses" );
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.insertionSort(a1000Reverse); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for insertion: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.selectionSort(b1000Reverse); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for Selection: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.quickSort(c1000Reverse); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for quick: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortIterative(d1000Reverse); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge iterative: "
+                + ((nano_endTime - nano_startTime)/3) );
+       
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortRecursive(e1000Reverse); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge recursive: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        
+        //1000 Sorted
+        System.out.println("\n" + "Array Size - 1000 Sorted");
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.insertionSort(a1000Sorted); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for insertion: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.selectionSort(b1000Sorted); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for Selection: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.quickSort(c1000Sorted); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for quick: "
+                + ((nano_endTime - nano_startTime)/3) );
+        
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortIterative(d1000Sorted); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge iterative: "
+                + ((nano_endTime - nano_startTime)/3) );
+       
+        
+        nano_startTime = System.nanoTime();
+        for(int i=0; i<3; i++) //To calc. average of 3 running times
+        {
+        	SortComparison.mergeSortRecursive(e1000Sorted); 
+        }
+        nano_endTime = System.nanoTime(); 
+        System.out.println("Time taken in nano seconds for merge recursive: "
+                + ((nano_endTime - nano_startTime)/3) );
+          	   
     }
 
     
