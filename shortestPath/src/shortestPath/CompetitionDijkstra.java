@@ -128,14 +128,13 @@ public class CompetitionDijkstra {
     				edgeTo[k][i] = x;
     			}
     		}
-    		//shPathFoundFromIntKTo[x] = true;  	has to be above loop in case false
+    		//shPathFoundFromIntKTo[x] = true;  	has to be above loop
     	}
     }
 
-
     /**
-    * @return int: minimum minutes that will pass before the three contestants can meet
-     */
+     * @return int: minimum minutes that will pass before the three contestants can meet
+      */
     public int timeRequiredforCompetition(){
 
         //TO DO
