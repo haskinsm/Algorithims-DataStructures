@@ -1,4 +1,3 @@
-package shortestPath;
 import java.util.Scanner;
 import java.io.File;
 /*
