@@ -15,10 +15,10 @@ import java.io.File;
  *     The city is a collection of intersections in which some pairs are connected by one-way
  * streets that the contestants can use to traverse the city.
  *
- * This class implements the competition using Dijkstra's algorithm
+ * This class implements the competition using Floyd-Warshall algorithm
  */
 
-public class CompetitionDijkstra {
+public class CompetitionFloydWarshall {
 	public String filename; 
 	public int sA; //Speeds in metres per minute 
 	public int sB;
@@ -30,9 +30,9 @@ public class CompetitionDijkstra {
     /**
      * @param filename: A filename containing the details of the city road network
      * @param sA, sB, sC: speeds for 3 contestants
-    */
-    CompetitionDijkstra (String filename, int speedA, int speedB, int speedC){
-        this.filename = filename;
+     */
+    CompetitionFloydWarshall (String filename, int speedA, int speedB, int speedC){ //Can just reuse code from start of Dijkstras 
+    	this.filename = filename;
     	sA = speedA;
     	sB = speedB;
     	sC = speedC;
@@ -81,85 +81,59 @@ public class CompetitionDijkstra {
         		}
         		i++;
         	}
-        	for(int j = 0; j < distTo.length; j++)
-        	{
-        		dijkstrashortestPath(j);
-        		//The relaxation process in Dijkstra's algorithm
-        		//refers to updating the cost of all vertices connected to a vertex v,
-        		//if those costs would be improved by including the path via v.
-        		//i.e. find all the shortest paths to a vertex and then repeat this 
-        		//step until all the shortest paths from every possible node to all the others has been found
-        	}
         	scanner.close();
     	}catch(Exception x){}
-    }
-    
-    public void dijkstrashortestPath(int k){
-    	boolean [] shPathFoundFromIntKTo = new boolean[distTo.length]; //True when shortest path from intersection k to another intersection is found
-    	shPathFoundFromIntKTo[k] = true; //As same intersection => distance is 0.
-    	while(true) //Will return when x=-1 which occurs when the shortest  path to all intersections from intersection k has been found
-    	{
-    		int x = -1;
-    		//The For loop sets x to a new intersection and once the shortest path to a new intersection has not been found it breaks the loop
-    		for(int i = 0; i < distTo.length; i ++) 
+    	//Floyd-Warshall algorithim for shortest path
+    	for(int i = 0; i <distTo.length; i++)
+    	{  
+    		// Let all intersections be source one by one
+    		for(int j = 0; j < distTo.length; j++)
     		{
-    			if((shPathFoundFromIntKTo[i] == false) && (distTo[k][i] != Integer.MAX_VALUE)) //If distAB is equal to max value it is not possible to go directly from A to B
+    			// Let all intersections be destination for the above intersection source 
+    			for(int k = 0; k < distTo.length; k++)
     			{
-    				x = i;
-    				break; 
-    			}
-    		}
-    		if(x == -1) //All shPaths have been found to K from all the other intersections
-    		{
-    			return; 
-    		}   
-    		shPathFoundFromIntKTo[x] = true;  	
-    		for(int i = 0; i < distTo.length; i++) //Loops through and relaxes distance when advantageous to include intersection x when trying to get from k to i
-    		{
-    			if(distTo[k][x] + distTo[x][i] <= distTo[k][i])
-    			{
-    				if(x < streetsTo[k][i] && distTo[k][x] + distTo[x][i] <= distTo[k][i]) //Will prefer path with least amount of streets or 'edges'
+    				// If intersection i is on the shortest path from j to k, then update the value of dist[j][k] 
+    				if(distTo[j][i] + distTo[i][k] < distTo[j][k])
     				{
-	    				distTo[k][i] = distTo[k][x] + distTo[x][i];
-	    				shPathFoundFromIntKTo[i] = false;
-	    				streetsTo[k][i] = x;
+    					distTo[j][k] = distTo[j][i] + distTo[i][k];
+    					streetsTo[j][k] = i;  //*****Might add code later to prefer paths that are equal but use less streets, like I did in Dijk.
     				}
     			}
     		}
-    		//shPathFoundFromIntKTo[x] = true;  	has to be above loop in case false
     	}
     }
 
+
     /**
      * @return int: minimum minutes that will pass before the three contestants can meet
-      */
-    public int timeRequiredforCompetition(){
+     */
+    public int timeRequiredforCompetition(){ //Can copy and paste from same method for Dijkstras.
 
         //TO DO
-        double maxShPath = 0.0; //In Km  
-        // Loop below finds the intersection with the max shortest path
-    	for(int i = 0; i < distTo.length; i++)
-    	{
-    		for(int j = 0; j < distTo[i].length; j++)
-    		{
-    			if(distTo[i][j] == Integer.MAX_VALUE) //Not a possible path if this is the case, maybe should do distTo[i][j] < Integer.MaxValue && distTo[i][j] > maxShPath
-    			{                                     //Try Later **********
-    				return - 1;
-    			}
-    			else if(distTo[i][j] > maxShPath)
-    			{
-    				maxShPath = distTo[i][j];
-    			}
-    		}
-    	}
-        if( maxShPath == 0 || minSpeed <= 0 )//Error checking
-    	{
-    		return - 1;
-    	}
-        double maxShPathInM = maxShPath*1000;
-        //Speeds in metres per minute 
-        int timeReq = (int) Math.ceil((maxShPathInM)/minSpeed); //Need to use Math.Ceil to always round up when converting double to int. i.e. 3.2->4
-        return timeReq; //returns time in mins
+    	 double maxShPath = 0.0; //In Km  
+         // Loop below finds the intersection with the max shortest path
+     	for(int i = 0; i < distTo.length; i++)
+     	{
+     		for(int j = 0; j < distTo[i].length; j++)
+     		{
+     			if(distTo[i][j] == Integer.MAX_VALUE) //Not a possible path if this is the case, maybe should do distTo[i][j] < Integer.MaxValue && distTo[i][j] > maxShPath
+     			{                                     //Try Later **********
+     				return - 1;
+     			}
+     			else if(distTo[i][j] > maxShPath)
+     			{
+     				maxShPath = distTo[i][j];
+     			}
+     		}
+     	}
+         if( maxShPath == 0 || minSpeed <= 0 )//Error Chceking for neg. speeds
+     	{
+     		return - 1;
+     	}
+         double maxShPathInM = maxShPath*1000;
+         //Speeds in metres per minute 
+         int timeReq = (int) Math.ceil((maxShPathInM)/minSpeed); //Need to use Math.Ceil to always round up when converting double to int. i.e. 3.2->4
+         return timeReq; //returns time in mins
     }
 
 }
